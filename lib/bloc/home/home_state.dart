@@ -1,6 +1,5 @@
 part of 'home_bloc.dart';
 
-@immutable
 abstract class HomeState {}
 
 abstract class HomeActionState extends HomeState {}
@@ -14,16 +13,12 @@ class HomeLoaderSuccessState extends HomeState {
   HomeLoaderSuccessState({required this.product});
 }
 
-class HomeErrorState extends HomeState {
-  final String errorMessage ;
-
-  HomeErrorState({required this.errorMessage});}
-
-
 class HomeWishListButtonNaviagtionActionState extends HomeActionState {}
 
-class HomeCartButtonNaviagtionActionState extends HomeActionState {}
+class HomeWishListAddActionState extends HomeActionState {}
 
-class HomeWishListNaviagtionActionState extends HomeActionState {}
+class HomeErrorState extends HomeState {
+  final String errorMessage;
 
-class HomeCartNaviagtionActionState extends HomeActionState {}
+  HomeErrorState({required this.errorMessage});
+}

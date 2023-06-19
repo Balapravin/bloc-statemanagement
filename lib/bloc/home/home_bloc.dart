@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:samplebloc/api_service/api_service,dart.dart';
 import 'package:samplebloc/model/home_product_model.dart';
+import 'package:samplebloc/screen/wishlist/wishlist_data.dart';
 
 import '../../helper/helper.dart';
 
@@ -14,7 +15,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitialState()) {
     on<HomeInitialEvent>(homeInitialEvent);
     on<HomeWishlistButtonClickEvent>(homeWishlistButtonClickEvent);
-    on<HomeCartButtonClickEvent>(homeCartButtonClickEvent);
+    on<HomeToWishlistAddEvent>(homeToWishlistAddEvent);
   }
 
   FutureOr<void> homeInitialEvent(
@@ -31,13 +32,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FutureOr<void> homeWishlistButtonClickEvent(
       HomeWishlistButtonClickEvent event, Emitter<HomeState> emit) {
     helper.logger('WishList Clicked  👍');
-
     emit(HomeWishListButtonNaviagtionActionState());
   }
 
-  FutureOr<void> homeCartButtonClickEvent(
-      HomeCartButtonClickEvent event, Emitter<HomeState> emit) {
-    helper.logger('Cart Clicked  👍');
-    emit(HomeCartButtonNaviagtionActionState());
+  FutureOr<void> homeToWishlistAddEvent(
+      HomeToWishlistAddEvent event, Emitter<HomeState> emit) {
+    wishlistData.add(event.saveData);
+    emit(HomeWishListAddActionState());
   }
 }

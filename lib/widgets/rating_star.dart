@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class StartRating extends StatelessWidget {
   final int ratingcount;
-   StartRating({super.key, required this.ratingcount});
+   StartRating({required this.ratingcount});
 
   @override
   Widget build(BuildContext context) {

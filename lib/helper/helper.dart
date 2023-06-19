@@ -7,7 +7,7 @@ class Helper {
     if (isProduction == 1) {
       // --- No Actions ---
     } else {
-      print(message);
+      log(message);
     }
   }
 }

@@ -5,12 +5,12 @@ abstract class HomeEvent {}
 
 class HomeInitialEvent extends HomeEvent {}
 
-class HomeWishlistButtonClickEvent extends HomeEvent{}
+class HomeWishlistButtonClickEvent extends HomeEvent{
 
-class HomeCartButtonClickEvent extends HomeEvent{}
+}
 
-//----------
+class HomeToWishlistAddEvent extends HomeEvent{
+  final HomeProduct saveData ;
 
-class HomeProductWishlistClickEvent extends HomeEvent{}
-
-class HomeProductCartClickEvent extends HomeEvent{}
+  HomeToWishlistAddEvent(this.saveData);
+}

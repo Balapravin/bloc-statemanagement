@@ -1,59 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:samplebloc/bloc/home/home_bloc.dart';
-import 'package:samplebloc/screen/wishlist/wishlist.dart';
-import 'package:samplebloc/widgets/rating_star.dart';
+import 'package:samplebloc/bloc/wishlist/wishlist_bloc.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+import '../../widgets/rating_star.dart';
+
+class WishlistPage extends StatefulWidget {
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<WishlistPage> createState() => _WishlistPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  final HomeBloc homeBloc = HomeBloc();
+class _WishlistPageState extends State<WishlistPage> {
   @override
   void initState() {
-    homeBloc.add(HomeInitialEvent());
-    // TODO: implement initState
+ wishlistBloc.add(WishlistInitialEvent());
     super.initState();
   }
-
-  @override
+  final wishlistBloc = WishlistBloc()
+;  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeBloc, HomeState>(
-      bloc: homeBloc,
-      listenWhen: (previous, current) => current is HomeActionState,
-      buildWhen: (previous, current) => current is! HomeActionState,
+    return BlocConsumer<WishlistBloc, WishlistState>(
+      bloc: wishlistBloc,
+      listenWhen: (previous, current) => current is WishlistState,
+      buildWhen: (previous, current) => current is! WishlistActionState,
       listener: (context, state) {
-        if (state is HomeWishListButtonNaviagtionActionState) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => WishlistPage()));
-        }else if(state is HomeWishListAddActionState){
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Item Added to Wishliste")));
+        if(state is WishlistRemoveState){
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Item Removed to Wishliste")));
         }
         // TODO: implement listener
       },
       builder: (context, state) {
         switch (state.runtimeType) {
-          case HomeLoaderState:
+          case WishlistLoadingState:
             return const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
               ),
             );
 
-          case HomeLoaderSuccessState:
-            final successState = state as HomeLoaderSuccessState;
+          case WishlistLoadingSuccessState:
+            final successState = state as WishlistLoadingSuccessState;
             return Scaffold(
-                appBar: AppBar(title: const Text('Home'), actions: [
-                  IconButton(
-                      onPressed: () {
-                        homeBloc.add(HomeWishlistButtonClickEvent());
-                      },
-                      icon: const Icon(Icons.favorite_border)),
-                ]),
+                appBar: AppBar(title: const Text('Wishlist')),
                 body: ListView.builder(
                   itemCount: successState.product.length,
                   itemBuilder: (context, index) {
@@ -80,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     StartRating(
                                         ratingcount:
-                                            apiData.rating!.rate!.toInt()),
+                                        apiData.rating!.rate!.toInt()),
                                     const SizedBox(
                                       height: 6,
                                     ),
@@ -99,8 +87,8 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(width: 12),
                               IconButton(
                                   onPressed: () {
-                                    homeBloc
-                                        .add(HomeToWishlistAddEvent(apiData));
+                                    wishlistBloc
+                                        .add(WishlistRemoveEvent(apiData.id!));
                                   },
                                   icon: const Icon(
                                     Icons.favorite_border,
@@ -115,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 ));
 
-          case HomeErrorState:
+          case WishlistErrorState:
             return const Scaffold(
               body: Center(
                 child: Text('Error'),
