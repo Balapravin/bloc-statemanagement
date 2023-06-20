@@ -2,6 +2,8 @@
 //
 //     final homeProduct = homeProductFromJson(jsonString);
 
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 List<HomeProduct> homeProductFromJson(String str) => List<HomeProduct>.from(json.decode(str).map((x) => HomeProduct.fromJson(x)));

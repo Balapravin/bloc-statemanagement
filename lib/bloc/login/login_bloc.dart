@@ -2,8 +2,7 @@
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:samplebloc/api_service/api_service,dart.dart';
-
+import 'package:samplebloc/api_service/api_service.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
@@ -13,7 +12,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future loginButtonEvent(event, emit) async {
-    final data =await ApiService().loginApi(event.email, event.password);
+    final data =await apiService.loginApi(event.email, event.password);
     if(data['token'] != null){
     emit(LoginButtonSuccessState());
   }else{

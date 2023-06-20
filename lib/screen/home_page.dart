@@ -29,9 +29,9 @@ class _HomePageState extends State<HomePage> {
       listener: (context, state) {
         if (state is HomeWishListButtonNaviagtionActionState) {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => WishlistPage()));
+              context, MaterialPageRoute(builder: (context) => const WishlistPage()));
         }else if(state is HomeWishListAddActionState){
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Item Added to Wishliste")));
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Item Added to Wishliste")));
         }
         // TODO: implement listener
       },

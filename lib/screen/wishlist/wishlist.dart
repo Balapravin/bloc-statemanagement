@@ -5,6 +5,8 @@ import 'package:samplebloc/bloc/wishlist/wishlist_bloc.dart';
 import '../../widgets/rating_star.dart';
 
 class WishlistPage extends StatefulWidget {
+  const WishlistPage({Key? key}) : super(key: key);
+
 
   @override
   State<WishlistPage> createState() => _WishlistPageState();
@@ -21,11 +23,11 @@ class _WishlistPageState extends State<WishlistPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<WishlistBloc, WishlistState>(
       bloc: wishlistBloc,
-      listenWhen: (previous, current) => current is WishlistState,
-      buildWhen: (previous, current) => current is! WishlistActionState,
+      // listenWhen: (previous, current) => current is WishlistState,
+      // buildWhen: (previous, current) => current is! WishlistActionState,
       listener: (context, state) {
         if(state is WishlistRemoveState){
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Item Removed to Wishliste")));
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Item Removed to Wishliste")));
         }
         // TODO: implement listener
       },

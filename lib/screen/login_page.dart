@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
         if (state is LoginButtonSuccessState) {
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => const HomePage()),
               (route) => false);
         } else if (state is LoginButtonFaildState) {
           ScaffoldMessenger.of(context)

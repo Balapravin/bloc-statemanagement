@@ -1,8 +1,6 @@
 import 'dart:async';
-
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:samplebloc/api_service/api_service,dart.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:samplebloc/api_service/api_service.dart';
 import 'package:samplebloc/model/home_product_model.dart';
 import 'package:samplebloc/screen/wishlist/wishlist_data.dart';
 
