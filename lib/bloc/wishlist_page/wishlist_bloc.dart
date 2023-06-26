@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:bloc_poc/config/wishlist_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:samplebloc/screen/wishlist/wishlist_data.dart';
 
-import '../../model/home_product_model.dart';
+import '../../model/product_data.dart';
 
 part 'wishlist_event.dart';
 part 'wishlist_state.dart';
@@ -18,13 +18,21 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
       WishlistInitialEvent event, Emitter<WishlistState> emit) {
     emit(WishlistLoadingState());
     final wishlist = wishlistData;
-    emit(WishlistLoadingSuccessState(product: wishlist));
+
+    if (wishlist.isEmpty) {
+      emit(WishlistInitial());
+    } else if (wishlist.isNotEmpty) {
+      emit(WishlistLoadingSuccessState(wishlist));
+    } else {
+      emit(WishlistErrorState());
+    }
   }
 
   FutureOr<void> wishlistRemoveEvent(
       WishlistRemoveEvent event, Emitter<WishlistState> emit) {
     wishlistData.removeWhere((element) => element.id == event.removeId);
-    emit(WishlistLoadingSuccessState(product: wishlistData));
-    emit(WishlistRemoveState());
+
+    emit(WishlistRemoveSuccessState());
+    emit(WishlistLoadingSuccessState(wishlistData));
   }
 }

@@ -1,8 +1,8 @@
-import 'dart:convert';
 
+import 'dart:convert';
+import 'package:bloc_poc/model/product_data.dart';
 import 'package:http/http.dart' as http;
-import 'package:samplebloc/helper/helper.dart';
-import 'package:samplebloc/model/home_product_model.dart';
+import '../helper/helper.dart';
 
 class ApiService {
   Future loginApi(String email, String password) async {
@@ -13,7 +13,7 @@ class ApiService {
         helper.logger(response.body);
         return jsonDecode(response.body);
       } else {
-        helper.logger("Login error");
+        helper.logger(response.body);
         return jsonDecode(response.body);
       }
     } catch (e) {
@@ -21,13 +21,13 @@ class ApiService {
     }
   }
 
-  Future<List<HomeProduct>> getProductData() async {
+  Future<List<ProductData>> getProductData() async {
     try {
       final response =
-          await http.get(Uri.parse('https://fakestoreapi.com/products'));
+          await http.get(Uri.parse('https://fakestoreapi.com/products/category/jewelery'));
       if (response.statusCode == 200) {
         helper.logger(jsonDecode(response.body).toString());
-        return homeProductFromJson(response.body);
+        return productDataFromJson(response.body);
       } else {
         throw Exception('getProductData -----> ${response.reasonPhrase}');
       }

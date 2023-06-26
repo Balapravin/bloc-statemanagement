@@ -1,6 +1,6 @@
 {
-    "name": "samplebloc",
-    "short_name": "samplebloc",
+    "name": "bloc_poc",
+    "short_name": "bloc_poc",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
